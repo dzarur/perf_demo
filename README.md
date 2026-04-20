@@ -61,7 +61,7 @@ uv run python3 measure.py cpu
 
 You'll see three numbers: wall-clock time, CPU time, and their ratio.
 
-**Discuss:**
+**Turn to a neighbor:**
 - Why are CPU time and wall time nearly equal here?
 
 ---
@@ -78,7 +78,7 @@ uv run python3 measure.py network
 
 You'll see two rows — the slow endpoint and the fast one (no delay).
 
-**Discuss:**
+**Turn to a neighbor:**
 - Wall time is much larger than CPU time for the slow endpoint. What is the process doing during the gap?
 - The fast endpoint doesn't change the code — only the server delay disappears. What does that tell you about where the bottleneck was?
 
@@ -94,7 +94,7 @@ Run it:
 uv run python3 measure.py memory
 ```
 
-**Discuss:**
+**Turn to a neighbor:**
 - Find the specific line(s) in `memory_workload` that explain the higher memory usage.
 - The outputs are identical. If the outputs are the same, why does the implementation matter?
 
@@ -113,7 +113,7 @@ The left panel shows how much of wall time was actual CPU work vs waiting. The r
 
 Most performance advice you'll find online assumes the bottleneck is CPU. These numbers suggest it usually isn't.
 
-**Discuss:**
+**Turn to a neighbor:**
 - Label each workload: CPU-bound, I/O-bound, or memory-bound. What single number in the table tells you?
 
 ### From "which workload?" to "which line?"
@@ -142,7 +142,7 @@ uv run scalene run --cli measure.py
 
 Find `workloads.py` in the Scalene output. Look for lines with non-zero values in the Memory column. Scalene doesn't just tell you which function — it shows you which specific line is doing the allocating.
 
-**Discuss:**
+**Turn to a neighbor:**
 - `measure.py` → which workload. `cProfile` → which function. Scalene → which line. Each layer narrows the gap between "something is slow" and "change this exact thing." There's a McLuhan-ish question here: what might these increasingly specific tools be extending in the developer who uses them — and what might they be atrophying?
 
 ---
