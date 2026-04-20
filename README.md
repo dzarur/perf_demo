@@ -53,6 +53,8 @@ Read `cpu_workload()` in `workloads.py`. It parses 20,000 log lines with a regul
 
 Before running anything: **predict** — will CPU time be close to wall-clock time, or far apart?
 
+    * I think that it will be close to wall clock time
+
 Run it:
 
 ```
@@ -63,6 +65,11 @@ You'll see three numbers: wall-clock time, CPU time, and their ratio.
 
 **Turn to a neighbor:**
 - Why are CPU time and wall time nearly equal here?
+- Workload                    Wall (s)   CPU (s)  CPU/Wall    Peak mem
+--------------------------------------------------------------------
+cpu_workload                   0.020     0.020    99.4%        1.9K
+
+probably bceause we didn't have to wait for any I/O operations to complete so the cpu completed it in the total time spent.
 
 ---
 
@@ -78,9 +85,16 @@ uv run python3 measure.py network
 
 You'll see two rows — the slow endpoint and the fast one (no delay).
 
+Workload                    Wall (s)   CPU (s)  CPU/Wall    Peak mem
+--------------------------------------------------------------------
+network (slow)                 1.892     0.038     2.0%      249.6K
+network (fast)                 0.016     0.011    69.3%       28.9K
+
 **Turn to a neighbor:**
 - Wall time is much larger than CPU time for the slow endpoint. What is the process doing during the gap?
+    Searching the network is an I/O operation the Wall time must wait to complete, while CPU time is just messuring the amount of time it works on the CPU
 - The fast endpoint doesn't change the code — only the server delay disappears. What does that tell you about where the bottleneck was?
+The bottleneck is the request sent from my machine.
 
 ---
 
@@ -97,6 +111,12 @@ uv run python3 measure.py memory
 **Turn to a neighbor:**
 - Find the specific line(s) in `memory_workload` that explain the higher memory usage.
 - The outputs are identical. If the outputs are the same, why does the implementation matter?
+
+Workload                    Wall (s)   CPU (s)  CPU/Wall    Peak mem
+--------------------------------------------------------------------
+memory_workload                0.047     0.047    99.6%     6596.3K
+
+The implemetation matters because otherwise the Wall time would take longer therfore causing the total time to go up, even if the CPU isn't working longer.
 
 ---
 
