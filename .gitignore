@@ -2,3 +2,4 @@
 __pycache__/
 *.pyc
 metrics.png
+scalene-profile.json

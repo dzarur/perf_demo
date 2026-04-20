@@ -373,9 +373,6 @@ requires-dist = [
 ]
 provides-extras = ["profiler"]
 
-[package.metadata.requires-dev]
-dev = []
-
 [[package]]
 name = "fonttools"
 version = "4.57.0"
